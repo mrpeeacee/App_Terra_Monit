@@ -1,0 +1,10 @@
+# Terraform local files
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+
+# Crash logs and override files
+*.log
+*.override
+*.backup
