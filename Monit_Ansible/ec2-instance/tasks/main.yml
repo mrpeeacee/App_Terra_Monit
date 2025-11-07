@@ -1,0 +1,38 @@
+---
+- name: Create security group for EC2 instance
+  amazon.aws.ec2_security_group:
+    name: "{{ sg_name }}"
+    description: "Security group for Prometheus server"
+    region: "{{ aws_region }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 9090
+        to_port: 9090
+        cidr_ip: 0.0.0.0/0
+    state: present
+
+- name: Launch EC2 instance
+  amazon.aws.ec2_instance:
+    name: "{{ instance_name }}"
+    key_name: "{{ key_name }}"
+    instance_type: "{{ instance_type }}"
+    image_id: "{{ ami_id }}"
+    region: "{{ aws_region }}"
+    security_groups:
+      - "{{ sg_name }}"
+    network:
+      assign_public_ip: true
+    wait: yes
+    wait_timeout: 300
+  register: ec2_creation
+
+- name: Display EC2 instance details
+  debug:
+    msg: "EC2 instance created successfully. Public IP: {{ ec2_creation.instances[0].public_ip_address }}"
+  when: 
+    - ec2_creation.instances is defined
+    - ec2_creation.instances | length > 0

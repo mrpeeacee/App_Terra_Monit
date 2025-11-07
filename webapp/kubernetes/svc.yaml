@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gandalf-webapp
+  labels:
+    app: gandalf-webapp
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-ip-address-type: "ipv4"
+    service.beta.kubernetes.io/aws-load-balancer-eip-allocations: "eipalloc-0710e45ece3dd5bfd,eipalloc-04af6c1ba10c3c7fe"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: gandalf-webapp

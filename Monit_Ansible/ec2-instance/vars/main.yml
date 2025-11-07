@@ -1,0 +1,6 @@
+---
+#  default values 
+aws_region: "eu-north-1"
+instance_name: "prometheus-server"
+instance_type: "t3.micro"
+sg_name: "prometheus-sg"

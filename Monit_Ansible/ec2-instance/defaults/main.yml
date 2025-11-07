@@ -1,0 +1,14 @@
+---
+# AWS Region
+aws_region: "eu-north-1"
+
+# Instance Details
+instance_name: "my-ec2-instance"
+instance_type: "t3.micro"
+ami_id: "ami-0a716d3f3b16d290c" 
+
+# Security Group
+sg_name: "default"
+
+# Key Pair 
+key_name: "ansible_project"

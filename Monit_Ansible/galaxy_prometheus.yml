@@ -1,0 +1,45 @@
+---
+- name: Setup Prometheus Monitoring Server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Download Prometheus
+      get_url:
+        url: https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz
+        dest: /tmp/prometheus.tar.gz
+
+    - name: Extract Prometheus
+      unarchive:
+        src: /tmp/prometheus.tar.gz
+        dest: /opt/
+        remote_src: yes
+
+    - name: Configure Prometheus
+      copy:
+        dest: /opt/prometheus-2.47.0.linux-amd64/prometheus.yml
+        content: |
+          global:
+            scrape_interval: 15s
+
+          scrape_configs:
+            - job_name: 'prometheus'
+              static_configs:
+                - targets: ['localhost:9090']
+
+            - job_name: 'k8s_app'
+              static_configs:
+                - targets: 
+                  - '13.61.235.125:80'
+                  - '51.21.111.226:80'
+              scrape_interval: 30s
+              metrics_path: /metrics
+
+    - name: Start Prometheus
+      shell: |
+        cd /opt/prometheus-2.47.0.linux-amd64/
+        nohup ./prometheus --config.file=prometheus.yml --web.listen-address=0.0.0.0:9090 > prometheus.log 2>&1 &
+
+    - name: Show success message
+      debug:
+        msg: "Prometheus deployed. Access: http://{{ ansible_host }}:9090"

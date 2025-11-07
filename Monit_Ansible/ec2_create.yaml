@@ -1,0 +1,8 @@
+---
+- name: Create EC2 instance using role
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  
+  roles:
+    - ec2-instance

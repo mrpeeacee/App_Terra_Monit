@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gandalf-webapp
+  labels:
+    app: gandalf-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gandalf-webapp
+  template:
+    metadata:
+      labels:
+        app: gandalf-webapp
+    spec:
+      containers:
+        - name: gandalf-webapp
+          image: in30minthing/gandalf-webapp:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
