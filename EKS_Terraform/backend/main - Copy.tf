@@ -1,21 +1,9 @@
 provider "aws" {
-  region = "ap-south-1"
+  region = "eu-north-1"
 }
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "gandalf-web-app-terraform-eks-state-s3-bucket-4565"
-
-  versioning {
-    enabled = true
-  }
-
-  server_side_encryption_configuration {
-    rule {
-     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
-    }
-  }
-  }
 
   lifecycle {
     prevent_destroy = false
