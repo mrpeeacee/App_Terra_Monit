@@ -10,7 +10,7 @@ terraform {
     bucket         = "gandalf-web-app-terraform-eks-state-s3-bucket-4565"
     key            = "terraform.tfstate"
     region         = "ap-south-1"
-    dynamodb_table = "gandalf-web-app-terraform-eks-state-locks"
+    use_lockfile   = true
     encrypt        = true
   }
 }

@@ -1,9 +1,5 @@
-provider "aws" {
-  region = "ap-south-1"
-}
-
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "gandalf-web-app-terraform-eks-state-s3-bucket-4565"
+  bucket = "gandalf-web-app-terraform-eks-state-s3-bucket-6969"
 
   versioning {
     enabled = true

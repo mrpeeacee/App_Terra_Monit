@@ -19,3 +19,26 @@ root/ (root module)
     ├── main.tf
     ├── outputs.tf
     └── terraform.tfstate / lock files (state mgmt)
+
+
+
+
+terraform-eks-project/
+├── backend/
+│   ├── main.tf
+│   └── outputs.tf
+│
+├── modules/
+│   ├── vpc/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   └── eks/
+│       ├── main.tf
+│       ├── variables.tf
+│       └── outputs.tf
+│
+├── main.tf
+├── provider.tf
+├── var.tf
+├── out.tf
